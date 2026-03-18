@@ -1,19 +1,18 @@
 import { clsx } from "clsx";
 
-// White backgrounds, semantic meaning conveyed through text weight + teal for positive states
 const STATUS_STYLES = {
-  critical:  { dot: "bg-gray-800",   pill: "bg-white text-gray-900  border border-gray-200", label: "Critical",  weight: "font-bold"    },
-  attention: { dot: "bg-gray-500",   pill: "bg-white text-gray-700  border border-gray-200", label: "Attention", weight: "font-semibold" },
-  stable:    { dot: "bg-care-500",   pill: "bg-white text-care-700  border border-gray-200", label: "Stable",    weight: "font-medium"  },
-  pending:   { dot: "bg-gray-400",   pill: "bg-white text-gray-500  border border-gray-200", label: "Pending",   weight: "font-medium"  },
-  inactive:  { dot: "bg-gray-300",   pill: "bg-white text-gray-400  border border-gray-200", label: "Inactive",  weight: "font-normal"  },
+  critical:  { dot: "bg-mw-danger",   pill: "bg-mw-danger-light text-mw-danger-dark  border border-mw-danger",   label: "Critical",  weight: "font-bold"    },
+  attention: { dot: "bg-mw-warning",  pill: "bg-mw-warning-light text-mw-warning-dark border border-mw-warning",  label: "Attention", weight: "font-semibold" },
+  stable:    { dot: "bg-mw-success",  pill: "bg-mw-success-light text-mw-success-dark border border-mw-success",  label: "Stable",    weight: "font-medium"  },
+  pending:   { dot: "bg-mw-ink-300",  pill: "bg-white text-mw-ink-500 border border-mw-surface-border",           label: "Pending",   weight: "font-medium"  },
+  inactive:  { dot: "bg-mw-ink-200",  pill: "bg-white text-mw-ink-400 border border-mw-surface-border",           label: "Inactive",  weight: "font-normal"  },
 };
 
 const RISK_STYLES = {
-  critical: "bg-white text-gray-900 border border-gray-200 font-bold",
-  high:     "bg-white text-gray-700 border border-gray-200 font-semibold",
-  medium:   "bg-white text-gray-500 border border-gray-200",
-  low:      "bg-white text-gray-400 border border-gray-200",
+  critical: "bg-mw-danger-light text-mw-danger-dark border border-mw-danger font-bold",
+  high:     "bg-mw-warning-light text-mw-warning-dark border border-mw-warning font-semibold",
+  medium:   "bg-white text-mw-ink-600 border border-mw-surface-border",
+  low:      "bg-white text-mw-ink-400 border border-mw-surface-border",
 };
 
 export function StatusBadge({ status, className }) {
@@ -37,10 +36,10 @@ export function RiskBadge({ risk, className }) {
 
 export function TaskBadge({ priority, className }) {
   const styles = {
-    urgent: "bg-white text-gray-900 border border-gray-200 font-bold",
-    high:   "bg-white text-gray-700 border border-gray-200 font-semibold",
-    normal: "bg-white text-gray-500 border border-gray-200",
-    low:    "bg-white text-gray-400 border border-gray-200",
+    urgent: "bg-mw-danger-light text-mw-danger-dark border border-mw-danger font-bold",
+    high:   "bg-mw-warning-light text-mw-warning-dark border border-mw-warning font-semibold",
+    normal: "bg-white text-mw-ink-500 border border-mw-surface-border",
+    low:    "bg-white text-mw-ink-400 border border-mw-surface-border",
   };
   const labels = { urgent: "Urgent", high: "High", normal: "Normal", low: "Low" };
   return (
@@ -52,9 +51,9 @@ export function TaskBadge({ priority, className }) {
 
 export function AlertSeverityBadge({ severity, className }) {
   const styles = {
-    critical:      "bg-white text-gray-900 border border-gray-200 font-bold",
-    warning:       "bg-white text-gray-700 border border-gray-200 font-semibold",
-    informational: "bg-white text-gray-500 border border-gray-200",
+    critical:      "bg-mw-danger-light text-mw-danger-dark border border-mw-danger font-bold",
+    warning:       "bg-mw-warning-light text-mw-warning-dark border border-mw-warning font-semibold",
+    informational: "bg-mw-primary-50 text-mw-primary-700 border border-mw-primary-200",
   };
   return (
     <span className={clsx("inline-flex items-center px-2.5 py-1 rounded-full text-xs", styles[severity] || styles.informational, className)}>

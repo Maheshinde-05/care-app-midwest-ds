@@ -9,13 +9,13 @@ import { DesignSystem } from "./pages/DesignSystem";
 
 function ModeSwitcher({ mode, onSwitch }) {
   return (
-    <div className="fixed bottom-5 right-5 z-50 bg-cara-surface border border-cara-border rounded-2xl shadow-xl p-3 flex flex-col gap-2">
-      <p className="text-[9px] font-bold uppercase tracking-widest text-cara-textMute text-center px-1">Preview</p>
+    <div className="fixed bottom-5 right-5 z-50 bg-white border border-mw-surface-border rounded-2xl shadow-xl p-3 flex flex-col gap-2">
+      <p className="text-[9px] font-bold uppercase tracking-widest text-mw-ink-400 text-center px-1">Preview</p>
       <button
         onClick={() => onSwitch("coordinator")}
         className={clsx(
           "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all",
-          mode === "coordinator" ? "bg-care-500 text-white" : "bg-cara-muted text-cara-textSub hover:bg-care-50 hover:text-care-700"
+          mode === "coordinator" ? "bg-mw-primary-600 text-white" : "bg-mw-surface-muted text-mw-ink-600 hover:bg-mw-primary-50 hover:text-mw-primary-700"
         )}
       >
         Coordinator
@@ -24,7 +24,7 @@ function ModeSwitcher({ mode, onSwitch }) {
         onClick={() => onSwitch("patient")}
         className={clsx(
           "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all",
-          mode === "patient" ? "bg-care-500 text-white" : "bg-cara-muted text-cara-textSub hover:bg-care-100 hover:text-care-700"
+          mode === "patient" ? "bg-mw-primary-600 text-white" : "bg-mw-surface-muted text-mw-ink-600 hover:bg-mw-primary-100 hover:text-mw-primary-700"
         )}
       >
         Patient App
@@ -33,7 +33,7 @@ function ModeSwitcher({ mode, onSwitch }) {
         onClick={() => onSwitch("design-system")}
         className={clsx(
           "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all",
-          mode === "design-system" ? "bg-indigo-600 text-white" : "bg-cara-muted text-cara-textSub hover:bg-indigo-50 hover:text-indigo-700"
+          mode === "design-system" ? "bg-indigo-600 text-white" : "bg-mw-surface-muted text-mw-ink-600 hover:bg-indigo-50 hover:text-indigo-700"
         )}
       >
         Design System

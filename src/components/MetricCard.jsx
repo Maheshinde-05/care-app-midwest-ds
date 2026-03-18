@@ -1,12 +1,12 @@
 import { clsx } from "clsx";
 
 const VARIANT_STYLES = {
-  critical:  { card: "bg-white border-gray-200", label: "text-gray-500", value: "text-gray-900" },
-  attention: { card: "bg-white border-gray-200", label: "text-gray-500", value: "text-gray-800" },
-  stable:    { card: "bg-white border-gray-200", label: "text-gray-500", value: "text-care-700" },
-  pending:   { card: "bg-white border-gray-200", label: "text-gray-500", value: "text-gray-700" },
-  inactive:  { card: "bg-white border-gray-200", label: "text-gray-400", value: "text-gray-500" },
-  default:   { card: "bg-white border-gray-200 shadow-xs", label: "text-gray-500", value: "text-gray-900" },
+  critical:  { card: "bg-mw-danger-light border-mw-danger",   label: "text-mw-danger-dark",  value: "text-mw-danger-dark"  },
+  attention: { card: "bg-mw-warning-light border-mw-warning", label: "text-mw-warning-dark", value: "text-mw-warning-dark" },
+  stable:    { card: "bg-mw-success-light border-mw-success", label: "text-mw-success-dark", value: "text-mw-success-dark" },
+  pending:   { card: "bg-white border-mw-surface-border",     label: "text-mw-ink-400",      value: "text-mw-ink-600"     },
+  inactive:  { card: "bg-white border-mw-surface-border",     label: "text-mw-ink-300",      value: "text-mw-ink-400"     },
+  default:   { card: "bg-white border-mw-surface-border shadow-xs", label: "text-mw-ink-400", value: "text-mw-ink-900"    },
 };
 
 export function MetricCard({ label, value, icon: Icon, variant = "default", trend, onClick, className }) {
@@ -33,7 +33,7 @@ export function MetricCard({ label, value, icon: Icon, variant = "default", tren
           {value}
         </span>
         {trend && (
-          <span className={clsx("text-xs font-semibold pb-0.5", trend.up ? "text-care-600" : "text-gray-500")}>
+          <span className={clsx("text-xs font-semibold pb-0.5", trend.up ? "text-mw-success-dark" : "text-mw-ink-400")}>
             {trend.up ? "↑" : "↓"} {trend.label}
           </span>
         )}

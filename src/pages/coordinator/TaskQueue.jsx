@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { clsx } from "clsx";
-import { Plus, CheckSquare, Clock, AlertTriangle } from "lucide-react";
+import { Plus, CheckSquare, Clock, AlertTriangle, Search } from "lucide-react";
 import { TASKS } from "../../data/mockData";
 import { TaskRow } from "../../components/TaskRow";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { MetricCard } from "../../components/MetricCard";
-import { Search } from "lucide-react";
 
 const PRIORITY_FILTERS = ["all", "urgent", "high", "normal", "low"];
 const STATUS_FILTERS   = ["all", "pending", "completed"];
@@ -57,26 +56,23 @@ export function TaskQueue() {
   return (
     <div className="flex-1 overflow-y-auto">
     <div className="p-4 md:p-6 max-w-3xl mx-auto">
-      {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-cara-textMute mb-1">Workflow</p>
-          <h1 className="text-2xl font-bold text-cara-text tracking-tight">My Tasks</h1>
-          <p className="text-sm text-cara-textMute">{total} open · {overdue} overdue · {done} completed</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-mw-ink-400 mb-1">Workflow</p>
+          <h1 className="text-2xl font-bold text-mw-ink-900 tracking-tight">My Tasks</h1>
+          <p className="text-sm text-mw-ink-400">{total} open · {overdue} overdue · {done} completed</p>
         </div>
         <Button variant="primary" size="sm" icon={Plus}>New Task</Button>
       </div>
 
-      {/* Metrics */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <MetricCard label="Overdue" value={overdue} variant={overdue > 0 ? "critical" : "default"} icon={AlertTriangle} />
         <MetricCard label="Due Today" value={tasks.filter(t => !t.completed && t.dueDate === "2026-03-16").length} variant="attention" icon={Clock} />
         <MetricCard label="Completed" value={done} variant="stable" icon={CheckSquare} />
       </div>
 
-      {/* Search + filters */}
-      <div className="bg-cara-surface border border-cara-border rounded-2xl shadow-xs mb-4">
-        <div className="px-4 py-4 border-b border-cara-border flex gap-3 flex-wrap">
+      <div className="bg-white border border-mw-surface-border rounded-2xl shadow-xs mb-4">
+        <div className="px-4 py-4 border-b border-mw-surface-border flex gap-3 flex-wrap">
           <Input
             icon={Search}
             placeholder="Search tasks or patients…"
@@ -85,36 +81,35 @@ export function TaskQueue() {
             className="flex-1 min-w-[180px]"
           />
         </div>
-        <div className="px-4 py-2.5 flex gap-4 border-b border-cara-border flex-wrap">
+        <div className="px-4 py-2.5 flex gap-4 border-b border-mw-surface-border flex-wrap">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[10px] font-semibold uppercase text-cara-textMute mr-1">Status</span>
+            <span className="text-[10px] font-semibold uppercase text-mw-ink-400 mr-1">Status</span>
             {STATUS_FILTERS.map(s => (
               <button key={s} onClick={() => setStatusFilter(s)} className={clsx(
                 "px-2.5 py-1 rounded-full text-xs font-semibold capitalize transition-all",
-                statusFilter === s ? "bg-care-500 text-white" : "bg-cara-muted text-cara-textSub hover:bg-care-50 hover:text-care-700"
+                statusFilter === s ? "bg-mw-primary-600 text-white" : "bg-mw-surface-muted text-mw-ink-600 hover:bg-mw-primary-50 hover:text-mw-primary-700"
               )}>{s}</button>
             ))}
           </div>
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[10px] font-semibold uppercase text-cara-textMute mr-1">Priority</span>
+            <span className="text-[10px] font-semibold uppercase text-mw-ink-400 mr-1">Priority</span>
             {PRIORITY_FILTERS.map(p => (
               <button key={p} onClick={() => setPriorityFilter(p)} className={clsx(
                 "px-2.5 py-1 rounded-full text-xs font-semibold capitalize transition-all",
-                priorityFilter === p ? "bg-care-500 text-white" : "bg-cara-muted text-cara-textSub hover:bg-care-50 hover:text-care-700"
+                priorityFilter === p ? "bg-mw-primary-600 text-white" : "bg-mw-surface-muted text-mw-ink-600 hover:bg-mw-primary-50 hover:text-mw-primary-700"
               )}>{p}</button>
             ))}
           </div>
         </div>
 
-        {/* Grouped task list */}
         {groups.length === 0 ? (
-          <div className="py-16 text-center text-sm text-cara-textMute">No tasks match your filters.</div>
+          <div className="py-16 text-center text-sm text-mw-ink-400">No tasks match your filters.</div>
         ) : (
           groups.map(group => (
             <div key={group.patientName}>
-              <div className="px-4 py-2 bg-cara-muted/40 border-b border-cara-border">
-                <span className="text-xs font-bold text-cara-textSub">{group.patientName}</span>
-                <span className="text-xs text-cara-textMute ml-2">({group.tasks.length} task{group.tasks.length !== 1 ? "s" : ""})</span>
+              <div className="px-4 py-2 bg-mw-surface-soft border-b border-mw-surface-border">
+                <span className="text-xs font-bold text-mw-ink-700">{group.patientName}</span>
+                <span className="text-xs text-mw-ink-400 ml-2">({group.tasks.length} task{group.tasks.length !== 1 ? "s" : ""})</span>
               </div>
               {group.tasks.map(task => (
                 <TaskRow key={task.id} task={task} onComplete={handleComplete} />

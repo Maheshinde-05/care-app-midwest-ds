@@ -8,7 +8,6 @@ import {
 import { CircularProgress } from "../../components/ui/Progress";
 import { Button } from "../../components/ui/Button";
 
-// We'll simulate a patient portal for Maria Santos's perspective
 const PATIENT_DATA = {
   name: "Maria Santos",
   coordinator: "Sarah Chen, RN",
@@ -45,10 +44,10 @@ const PATIENT_DATA = {
 };
 
 const VITAL_STYLE = {
-  caution: "border-gray-200 bg-white",
-  pending: "border-cara-border bg-white",
-  alert:   "border-gray-300 bg-white",
-  stable:  "border-care-200 bg-white",
+  caution: "border-mw-warning bg-mw-warning-light",
+  pending: "border-mw-surface-border bg-white",
+  alert:   "border-mw-danger bg-mw-danger-light",
+  stable:  "border-mw-success bg-mw-success-light",
 };
 
 const TABS = [
@@ -62,20 +61,20 @@ const TABS = [
 function TaskItem({ task, onToggle }) {
   return (
     <div className={clsx(
-      "flex items-center gap-3 py-3 border-b border-cara-border last:border-0",
+      "flex items-center gap-3 py-3 border-b border-mw-surface-border last:border-0",
       task.completed && "opacity-60"
     )}>
       <button onClick={() => onToggle(task.id)} className="flex-shrink-0">
         {task.completed
-          ? <CheckCircle2 size={22} className="text-care-500" />
-          : <Circle size={22} className="text-cara-textMute" />
+          ? <CheckCircle2 size={22} className="text-mw-success" />
+          : <Circle size={22} className="text-mw-ink-300" />
         }
       </button>
       <div className="flex-1">
-        <p className={clsx("text-sm font-medium text-cara-text", task.completed && "line-through text-cara-textMute")}>{task.title}</p>
-        <p className="text-xs text-cara-textMute">{task.time}</p>
+        <p className={clsx("text-sm font-medium text-mw-ink-900", task.completed && "line-through text-mw-ink-400")}>{task.title}</p>
+        <p className="text-xs text-mw-ink-400">{task.time}</p>
       </div>
-      {task.completed && <span className="text-xs text-care-600 font-semibold">Done</span>}
+      {task.completed && <span className="text-xs text-mw-success-dark font-semibold">Done</span>}
     </div>
   );
 }
@@ -87,10 +86,9 @@ function HomeTab({ data, onToggle }) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Welcome card */}
-      <div className="bg-gradient-to-br from-care-500 to-care-600 rounded-2xl p-5 text-white">
+      <div className="bg-gradient-to-br from-mw-primary-600 to-mw-primary-800 rounded-2xl p-5 text-white">
         <p className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-1">Today</p>
-        <h2 className="text-xl font-bold mb-3">{data.greeting} 👋</h2>
+        <h2 className="text-xl font-bold mb-3">{data.greeting}</h2>
         <div className="flex items-center gap-4">
           <CircularProgress value={pct} size={56} strokeWidth={5} label={`${pct}%`} sublabel="today" />
           <div>
@@ -100,11 +98,10 @@ function HomeTab({ data, onToggle }) {
         </div>
       </div>
 
-      {/* Today's tasks */}
-      <div className="bg-cara-surface border border-cara-border rounded-2xl overflow-hidden">
-        <div className="px-4 py-3.5 border-b border-cara-border flex items-center justify-between">
-          <h3 className="text-sm font-bold text-cara-text">Today's Tasks</h3>
-          <span className="text-xs text-care-600 font-semibold">{completed}/{total}</span>
+      <div className="bg-white border border-mw-surface-border rounded-2xl overflow-hidden">
+        <div className="px-4 py-3.5 border-b border-mw-surface-border flex items-center justify-between">
+          <h3 className="text-sm font-bold text-mw-ink-900">Today's Tasks</h3>
+          <span className="text-xs text-mw-primary-600 font-semibold">{completed}/{total}</span>
         </div>
         <div className="px-4">
           {data.carePlan.todayTasks.map(t => (
@@ -113,38 +110,35 @@ function HomeTab({ data, onToggle }) {
         </div>
       </div>
 
-      {/* Upcoming appointment */}
       {data.upcomingAppointments.slice(0, 1).map(apt => (
-        <div key={apt.id} className="bg-white border border-cara-border rounded-2xl p-4 flex items-center gap-3">
-          <div className="w-10 h-10 bg-care-50 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Calendar size={18} className="text-care-600" />
+        <div key={apt.id} className="bg-white border border-mw-surface-border rounded-2xl p-4 flex items-center gap-3">
+          <div className="w-10 h-10 bg-mw-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Calendar size={18} className="text-mw-primary-600" />
           </div>
           <div className="flex-1">
-            <p className="text-xs text-care-600 font-semibold uppercase tracking-wide">{apt.type} · {apt.date}</p>
-            <p className="text-sm font-semibold text-cara-text">{apt.with}</p>
-            <p className="text-xs text-cara-textMute">{apt.time} · {apt.note}</p>
+            <p className="text-xs text-mw-primary-600 font-semibold uppercase tracking-wide">{apt.type} · {apt.date}</p>
+            <p className="text-sm font-semibold text-mw-ink-900">{apt.with}</p>
+            <p className="text-xs text-mw-ink-400">{apt.time} · {apt.note}</p>
           </div>
-          <ChevronRight size={16} className="text-gray-400" />
+          <ChevronRight size={16} className="text-mw-ink-400" />
         </div>
       ))}
 
-      {/* Message from coordinator */}
       {data.messages.slice(0, 1).map(msg => (
-        <div key={msg.id} className="bg-care-50 border border-care-200 rounded-2xl p-4">
+        <div key={msg.id} className="bg-mw-primary-50 border border-mw-primary-200 rounded-2xl p-4">
           <div className="flex items-center gap-2 mb-1.5">
-            <div className="w-7 h-7 rounded-lg bg-care-200 flex items-center justify-center text-xs font-bold text-care-700">SC</div>
+            <div className="w-7 h-7 rounded-lg bg-mw-primary-200 flex items-center justify-center text-xs font-bold text-mw-primary-700">SC</div>
             <div>
-              <p className="text-xs font-semibold text-care-700">{msg.from}</p>
-              <p className="text-[10px] text-care-500">{msg.time}</p>
+              <p className="text-xs font-semibold text-mw-primary-700">{msg.from}</p>
+              <p className="text-[10px] text-mw-primary-500">{msg.time}</p>
             </div>
           </div>
-          <p className="text-sm text-cara-textSub leading-relaxed">{msg.preview}</p>
+          <p className="text-sm text-mw-ink-700 leading-relaxed">{msg.preview}</p>
         </div>
       ))}
 
-      {/* Contact coordinator */}
       <div className="flex gap-3">
-        <Button variant="care" className="flex-1" icon={Phone}>Call Coordinator</Button>
+        <Button variant="primary" className="flex-1" icon={Phone}>Call Coordinator</Button>
         <Button variant="secondary" className="flex-1" icon={MessageSquare}>Message</Button>
       </div>
     </div>
@@ -154,15 +148,13 @@ function HomeTab({ data, onToggle }) {
 function CarePlanTab({ data, onToggle }) {
   return (
     <div className="flex flex-col gap-4">
-      {/* Overall compliance */}
-      <div className="bg-cara-surface border border-cara-border rounded-2xl p-5">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-cara-textMute mb-2">Active Care Plan</p>
-        <h2 className="text-base font-bold text-cara-text mb-4">{data.carePlan.name}</h2>
-
+      <div className="bg-white border border-mw-surface-border rounded-2xl p-5">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-mw-ink-400 mb-2">Active Care Plan</p>
+        <h2 className="text-base font-bold text-mw-ink-900 mb-4">{data.carePlan.name}</h2>
         <div className="flex items-center justify-around">
           <div className="flex flex-col items-center gap-1">
             <CircularProgress value={data.carePlan.compliance} size={72} strokeWidth={6} label={`${data.carePlan.compliance}%`} sublabel="compliance" />
-            <p className="text-xs text-cara-textMute">Overall</p>
+            <p className="text-xs text-mw-ink-400">Overall</p>
           </div>
           <div className="flex flex-col items-center gap-1">
             <CircularProgress
@@ -171,17 +163,15 @@ function CarePlanTab({ data, onToggle }) {
               size={72} strokeWidth={6}
               label={data.carePlan.careDaysCompleted}
               sublabel={`/ ${data.carePlan.careDaysAllotted}`}
-              color="bg-care-500"
             />
-            <p className="text-xs text-cara-textMute">Care Days</p>
+            <p className="text-xs text-mw-ink-400">Care Days</p>
           </div>
         </div>
       </div>
 
-      {/* All tasks */}
-      <div className="bg-cara-surface border border-cara-border rounded-2xl overflow-hidden">
-        <div className="px-4 py-3.5 border-b border-cara-border">
-          <h3 className="text-sm font-bold text-cara-text">Today's Plan</h3>
+      <div className="bg-white border border-mw-surface-border rounded-2xl overflow-hidden">
+        <div className="px-4 py-3.5 border-b border-mw-surface-border">
+          <h3 className="text-sm font-bold text-mw-ink-900">Today's Plan</h3>
         </div>
         <div className="px-4">
           {data.carePlan.todayTasks.map(t => (
@@ -190,21 +180,20 @@ function CarePlanTab({ data, onToggle }) {
         </div>
       </div>
 
-      {/* Appointments */}
-      <div className="bg-cara-surface border border-cara-border rounded-2xl overflow-hidden">
-        <div className="px-4 py-3.5 border-b border-cara-border">
-          <h3 className="text-sm font-bold text-cara-text">Upcoming Appointments</h3>
+      <div className="bg-white border border-mw-surface-border rounded-2xl overflow-hidden">
+        <div className="px-4 py-3.5 border-b border-mw-surface-border">
+          <h3 className="text-sm font-bold text-mw-ink-900">Upcoming Appointments</h3>
         </div>
         <div className="px-4 py-2">
           {data.upcomingAppointments.map(apt => (
-            <div key={apt.id} className="flex items-center gap-3 py-3 border-b border-cara-border last:border-0">
-              <div className="w-9 h-9 rounded-xl bg-care-50 flex items-center justify-center flex-shrink-0">
-                <Calendar size={16} className="text-care-600" />
+            <div key={apt.id} className="flex items-center gap-3 py-3 border-b border-mw-surface-border last:border-0">
+              <div className="w-9 h-9 rounded-xl bg-mw-primary-50 flex items-center justify-center flex-shrink-0">
+                <Calendar size={16} className="text-mw-primary-600" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-cara-text">{apt.with}</p>
-                <p className="text-xs text-cara-textMute">{apt.date} · {apt.time}</p>
-                <p className="text-xs text-care-600">{apt.note}</p>
+                <p className="text-sm font-semibold text-mw-ink-900">{apt.with}</p>
+                <p className="text-xs text-mw-ink-400">{apt.date} · {apt.time}</p>
+                <p className="text-xs text-mw-primary-600">{apt.note}</p>
               </div>
             </div>
           ))}
@@ -219,24 +208,23 @@ function VitalsTab({ data }) {
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-3">
         {data.vitals.map((v, i) => (
-          <div key={i} className={clsx("rounded-2xl border p-4", VITAL_STYLE[v.status] || VITAL_STYLE.stable)}>
-            <p className="text-[10px] font-semibold text-cara-textMute uppercase tracking-wide mb-1">{v.label}</p>
-            <p className="text-xl font-bold text-cara-text">{v.value}</p>
-            <p className="text-xs text-cara-textMute mt-0.5">{v.date}</p>
+          <div key={i} className={clsx("rounded-2xl border p-4", VITAL_STYLE[v.status] || VITAL_STYLE.pending)}>
+            <p className="text-[10px] font-semibold text-mw-ink-400 uppercase tracking-wide mb-1">{v.label}</p>
+            <p className="text-xl font-bold text-mw-ink-900">{v.value}</p>
+            <p className="text-xs text-mw-ink-400 mt-0.5">{v.date}</p>
           </div>
         ))}
       </div>
 
-      {/* Trend note */}
-      <div className="bg-white border border-cara-border rounded-2xl p-4 flex gap-3">
-        <TrendingUp size={20} className="text-care-500 flex-shrink-0 mt-0.5" />
+      <div className="bg-white border border-mw-surface-border rounded-2xl p-4 flex gap-3">
+        <TrendingUp size={20} className="text-mw-primary-600 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-semibold text-cara-textSub font-semibold">Your HbA1c</p>
-          <p className="text-sm text-cara-textSub">Your last reading was 9.2%. Your care team is working with you to bring it below 7.5%.</p>
+          <p className="text-sm font-semibold text-mw-ink-900">Your HbA1c</p>
+          <p className="text-sm text-mw-ink-600">Your last reading was 9.2%. Your care team is working with you to bring it below 7.5%.</p>
         </div>
       </div>
 
-      <Button variant="care" icon={Plus}>Log New Reading</Button>
+      <Button variant="primary" icon={Plus}>Log New Reading</Button>
     </div>
   );
 }
@@ -245,22 +233,21 @@ function MessagesTab({ data }) {
   return (
     <div className="flex flex-col gap-3">
       {data.messages.map(msg => (
-        <div key={msg.id} className="bg-cara-surface border border-cara-border rounded-2xl p-4">
+        <div key={msg.id} className="bg-white border border-mw-surface-border rounded-2xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-xl bg-care-100 flex items-center justify-center text-xs font-bold text-care-700">
+            <div className="w-8 h-8 rounded-xl bg-mw-primary-100 flex items-center justify-center text-xs font-bold text-mw-primary-700">
               {msg.from.split(",")[0].split(" ").map(n => n[0]).join("").slice(0,2)}
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-cara-text">{msg.from}</p>
-              <p className="text-[10px] text-cara-textMute">{msg.time}</p>
+              <p className="text-sm font-semibold text-mw-ink-900">{msg.from}</p>
+              <p className="text-[10px] text-mw-ink-400">{msg.time}</p>
             </div>
-            <div className="w-2 h-2 rounded-full bg-care-500 flex-shrink-0" />
+            <div className="w-2 h-2 rounded-full bg-mw-primary-500 flex-shrink-0" />
           </div>
-          <p className="text-sm text-cara-textSub leading-relaxed">{msg.preview}</p>
-          <button className="text-xs text-care-600 font-semibold mt-2">Reply →</button>
+          <p className="text-sm text-mw-ink-600 leading-relaxed">{msg.preview}</p>
+          <button className="text-xs text-mw-primary-600 font-semibold mt-2">Reply →</button>
         </div>
       ))}
-
       <Button variant="primary" icon={MessageSquare}>New Message</Button>
     </div>
   );
@@ -277,34 +264,31 @@ export function PatientApp() {
   const data = { ...PATIENT_DATA, carePlan: { ...PATIENT_DATA.carePlan, todayTasks: tasks } };
 
   return (
-    <div className="max-w-md mx-auto h-screen flex flex-col bg-cara-bg">
-      {/* Status bar mock */}
-      <div className="bg-cara-surface px-5 pt-3 pb-2 flex items-center justify-between border-b border-cara-border flex-shrink-0">
+    <div className="max-w-md mx-auto h-screen flex flex-col bg-mw-surface-soft">
+      <div className="bg-white px-5 pt-3 pb-2 flex items-center justify-between border-b border-mw-surface-border flex-shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-care-400 to-care-600 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-mw-primary-500 to-mw-primary-700 flex items-center justify-center">
             <span className="text-white font-bold text-sm">C</span>
           </div>
-          <span className="font-bold text-sm text-cara-text tracking-tight">CARA Patient</span>
+          <span className="font-bold text-sm text-mw-ink-900 tracking-tight">CARA Patient</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-cara-textMute">
-          <Heart size={12} className="text-care-400" />
+        <div className="flex items-center gap-1.5 text-xs text-mw-ink-400">
+          <Heart size={12} className="text-mw-danger" />
           <span>Maria Santos</span>
         </div>
       </div>
 
-      {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto px-4 pt-4 pb-4">
         {activeTab === "home"     && <HomeTab     data={data} onToggle={toggleTask} />}
         {activeTab === "careplan" && <CarePlanTab data={data} onToggle={toggleTask} />}
         {activeTab === "vitals"   && <VitalsTab   data={data} />}
         {activeTab === "messages" && <MessagesTab data={data} />}
         {activeTab === "profile"  && (
-          <div className="text-center py-16 text-cara-textMute text-sm">Profile settings coming soon.</div>
+          <div className="text-center py-16 text-mw-ink-400 text-sm">Profile settings coming soon.</div>
         )}
       </div>
 
-      {/* Bottom nav */}
-      <nav className="flex-shrink-0 bg-cara-surface border-t border-cara-border px-2 py-2 flex items-center justify-around safe-area-bottom">
+      <nav className="flex-shrink-0 bg-white border-t border-mw-surface-border px-2 py-2 flex items-center justify-around">
         {TABS.map(tab => {
           const isActive = activeTab === tab.id;
           return (
@@ -313,11 +297,11 @@ export function PatientApp() {
               onClick={() => setActiveTab(tab.id)}
               className={clsx(
                 "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-150",
-                isActive ? "text-care-600" : "text-cara-textMute"
+                isActive ? "text-mw-primary-600" : "text-mw-ink-400"
               )}
             >
               <tab.icon size={20} className={isActive ? "stroke-[2.5px]" : "stroke-[1.5px]"} />
-              <span className={clsx("text-[10px] font-semibold", isActive ? "text-care-600" : "text-cara-textMute")}>
+              <span className={clsx("text-[10px] font-semibold", isActive ? "text-mw-primary-600" : "text-mw-ink-400")}>
                 {tab.label}
               </span>
             </button>
@@ -327,4 +311,3 @@ export function PatientApp() {
     </div>
   );
 }
-

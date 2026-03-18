@@ -4,9 +4,9 @@ import { AlertSeverityBadge } from "./ui/Badge";
 import { Button } from "./ui/Button";
 
 const SEVERITY_STYLES = {
-  critical:      { bg: "bg-alert-50   border-alert-200",   icon: "text-alert-500",   Icon: AlertTriangle },
-  warning:       { bg: "bg-caution-50 border-caution-200", icon: "text-caution-500", Icon: Bell },
-  informational: { bg: "bg-clarity-50 border-clarity-200", icon: "text-clarity-500", Icon: Info },
+  critical:      { bg: "bg-mw-danger-light  border-mw-danger",   icon: "text-mw-danger",       Icon: AlertTriangle },
+  warning:       { bg: "bg-mw-warning-light border-mw-warning",  icon: "text-mw-warning-dark",  Icon: Bell },
+  informational: { bg: "bg-mw-primary-50    border-mw-primary-200", icon: "text-mw-primary-600", Icon: Info },
 };
 
 export function AlertCard({ alert, onAcknowledge, onEscalate, onDismiss }) {
@@ -27,18 +27,18 @@ export function AlertCard({ alert, onAcknowledge, onEscalate, onDismiss }) {
         <div className="flex items-start justify-between gap-2 mb-1">
           <div>
             <AlertSeverityBadge severity={alert.severity} className="mb-1" />
-            <p className="text-sm font-semibold text-cara-text">{alert.patientName}</p>
+            <p className="text-sm font-semibold text-mw-ink-900">{alert.patientName}</p>
           </div>
-          <span className="text-xs text-cara-textMute flex-shrink-0">{alert.time}</span>
+          <span className="text-xs text-mw-ink-900Mute flex-shrink-0">{alert.time}</span>
         </div>
-        <p className="text-sm text-cara-textSub">{alert.message}</p>
+        <p className="text-sm text-mw-ink-900Sub">{alert.message}</p>
         {alert.suggestedAction && (
-          <p className="text-xs text-cara-textMute mt-1 italic">Suggested: {alert.suggestedAction}</p>
+          <p className="text-xs text-mw-ink-900Mute mt-1 italic">Suggested: {alert.suggestedAction}</p>
         )}
 
         <div className="flex items-center gap-2 mt-3 flex-wrap">
           {!alert.acknowledged && (
-            <Button variant="care" size="xs" onClick={() => onAcknowledge?.(alert.id)}>
+            <Button variant="primary" size="xs" onClick={() => onAcknowledge?.(alert.id)}>
               <CheckCheck size={12} /> Acknowledge
             </Button>
           )}
@@ -49,7 +49,7 @@ export function AlertCard({ alert, onAcknowledge, onEscalate, onDismiss }) {
           )}
           <button
             onClick={() => onDismiss?.(alert.id)}
-            className="p-1 rounded-lg hover:bg-white/60 text-cara-textMute transition-colors"
+            className="p-1 rounded-lg hover:bg-white/60 text-mw-ink-900Mute transition-colors"
           >
             <X size={14} />
           </button>
